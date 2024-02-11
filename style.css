@@ -1,0 +1,122 @@
+/* VARIABLES */
+:root {
+	--ff-body: "JetBrains Mono", monospace;
+
+	--clr-primary: #dfecce;
+	--clr-secondary: #99f618;
+	--clr-red: #ce1608;
+	--clr-light: #ffffff;
+	--clr-dark: #202020;
+	--clr-grey-1: #323232;
+	--clr-grey-2: #3b3b3b;
+	--clr-grey-3: #a1a1a1;
+	--clr-active: #2c2c2c;
+
+	--font-size-p: 1.25rem;
+
+	--box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 20px,
+		rgba(0, 0, 0, 0.35) 0px 5px 10px;
+	--border-radius: 8px;
+}
+
+/* GENERAL STYLES */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+body {
+	font-family: var(--ff-body);
+	background: var(--clr-primary);
+	font-size: var(--font-size-p);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+
+/* Calculator Body */
+.calculator {
+	background: var(--clr-dark);
+	color: var(--clr-light);
+	max-width: 500px;
+	width: 90%;
+	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
+	opacity: 0.95;
+}
+
+/* Calculator Display */
+.display {
+	padding: 5rem 1rem 2rem;
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+}
+
+.display .operation {
+	font-size: 1rem;
+	color: var(--clr-grey-3);
+}
+
+.display .result {
+	font-size: 3.5rem;
+}
+
+/* Calculator Keypads */
+.keypads {
+	padding: 0.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+}
+
+.keypads button {
+	cursor: pointer;
+	font-size: inherit;
+	color: var(--clr-light);
+	background: var(--clr-grey-2);
+	border: none;
+	border-radius: var(--border-radius);
+	width: 7rem;
+	height: 5.5rem;
+	flex: auto;
+}
+
+.keypads button:hover {
+	background: var(--clr-grey-1);
+}
+
+.keypads button:active {
+	background: var(--clr-active);
+}
+.keypads .keypad-darker {
+	background: var(--clr-grey-1);
+}
+
+.keypads .keypad-darker:hover {
+	background: var(--clr-grey-2);
+}
+
+.keypads .keypad-darker:active {
+	background: var(--clr-active);
+}
+
+.keypads .equal {
+	background: var(--clr-secondary);
+	color: var(--clr-dark);
+}
+
+.keypads .equal:hover {
+	background: #84d316;
+}
+.keypads .equal:active {
+	opacity: 0.9;
+}
+
+.keypads .operator,
+.keypads .equal {
+	font-size: 1.75rem;
+}
