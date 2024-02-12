@@ -52,6 +52,7 @@ function divide(a, b) {
 }
 
 // ----Manipulation of the UI
+
 function clickKeys(e) {
 	const targetElement = e.target;
 
@@ -63,6 +64,8 @@ function clickKeys(e) {
 		clickEqualSign();
 	} else if (targetElement.textContent === "AC") {
 		clearInput();
+	} else if (targetElement.textContent === "+/−") {
+		toggleNegation();
 	}
 }
 
@@ -119,6 +122,19 @@ function storeOperator(element) {
 			secondOperand = "";
 			operator = element.textContent;
 		}
+	}
+}
+
+function toggleNegation() {
+	if (firstOperand !== "" && resultDisplay.textContent == firstOperand) {
+		firstOperand = -parseFloat(firstOperand);
+		resultDisplay.textContent = firstOperand;
+	} else if (
+		secondOperand !== "" &&
+		resultDisplay.textContent == secondOperand
+	) {
+		secondOperand = -parseFloat(secondOperand);
+		resultDisplay.textContent = secondOperand;
 	}
 }
 
