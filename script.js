@@ -10,9 +10,10 @@ keypads.addEventListener("click", clickKeys);
 let firstOperand = "";
 let secondOperand = "";
 let operator = "";
+const MAX_DIGITS = 13;
 
 function operate(symbol, a, b) {
-	operationDisplay.textContent = `${firstOperand} ${operator} ${secondOperand} =`;
+	operationDisplay.textContent = `${firstOperand} ${operator} ${secondOperand}`;
 
 	if (symbol === "+") {
 		return add(a, b);
@@ -85,17 +86,21 @@ function storeOperands(element) {
 }
 
 function storeFirstOperand(element) {
-	firstOperand += element.textContent;
-	resultDisplay.textContent = firstOperand;
+	if (firstOperand.length < MAX_DIGITS) {
+		firstOperand += element.textContent;
+		resultDisplay.textContent = firstOperand;
+	}
 }
 
 function storeSecondOperand(element) {
-	if (!equalOperator.className.includes("finalResult")) {
-		secondOperand += element.textContent;
-		resultDisplay.textContent = secondOperand;
-	} else {
-		clearInput();
-		storeFirstOperand(element);
+	if (secondOperand.length < MAX_DIGITS) {
+		if (!equalOperator.className.includes("finalResult")) {
+			secondOperand += element.textContent;
+			resultDisplay.textContent = secondOperand;
+		} else {
+			clearInput();
+			storeFirstOperand(element);
+		}
 	}
 }
 
@@ -114,7 +119,7 @@ function storeOperator(element) {
 }
 
 function clearInput() {
-	operationDisplay.innerHTML = "&nbsp;";
+	operationDisplay.textContent = "";
 	resultDisplay.textContent = "0";
 	equalOperator.classList.remove("finalResult");
 	firstOperand = "";

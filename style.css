@@ -37,6 +37,10 @@ body {
 	min-height: 100vh;
 }
 
+p {
+	line-height: 1.1;
+}
+
 /* Calculator Body */
 .calculator {
 	background: var(--clr-dark);
@@ -50,7 +54,7 @@ body {
 
 /* Calculator Display */
 .display {
-	padding: 5rem 1rem 2rem;
+	padding: 4rem 1rem 2rem;
 	display: flex;
 	flex-direction: column;
 	align-items: end;
@@ -59,10 +63,13 @@ body {
 .display .operation {
 	font-size: 1.25rem;
 	color: var(--clr-grey-3);
+	margin-bottom: 1rem;
 }
 
 .display .result {
 	font-size: 3.5rem;
+	overflow-wrap: anywhere;
+	text-align: right;
 }
 
 /* Calculator Keypads */
