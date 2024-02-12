@@ -57,7 +57,7 @@ body {
 }
 
 .display .operation {
-	font-size: 1rem;
+	font-size: 1.25rem;
 	color: var(--clr-grey-3);
 }
 
