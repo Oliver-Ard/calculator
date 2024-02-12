@@ -21,7 +21,12 @@ function operate(symbol, a, b) {
 	} else if (symbol === "×") {
 		return multiply(a, b);
 	} else if (symbol === "÷") {
-		return divide(a, b);
+		if (b === 0) {
+			clearInput();
+			resultDisplay.textContent = "Cannot divide by zero";
+		} else {
+			return divide(a, b);
+		}
 	}
 }
 
@@ -45,6 +50,15 @@ function divide(a, b) {
 	resultDisplay.textContent = firstOperand;
 }
 
+function clickEqualSign() {
+	if (resultDisplay.textContent === "Cannot divide by zero") {
+		clearInput();
+	} else {
+		equalOperator.classList.add("finalResult");
+		operate(operator, +firstOperand, +secondOperand);
+	}
+}
+
 // ----Manipulation of the UI
 function clickKeys(e) {
 	const targetElement = e.target;
@@ -54,8 +68,7 @@ function clickKeys(e) {
 	} else if (targetElement.className.includes("operator")) {
 		storeOperator(targetElement);
 	} else if (targetElement.className.includes("equal")) {
-		equalOperator.classList.add("finalResult");
-		operate(operator, +firstOperand, +secondOperand);
+		clickEqualSign();
 	} else if (targetElement.textContent === "AC") {
 		clearInput();
 	}
