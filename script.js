@@ -51,15 +51,6 @@ function divide(a, b) {
 	resultDisplay.textContent = firstOperand;
 }
 
-function clickEqualSign() {
-	if (resultDisplay.textContent === "Cannot divide by zero") {
-		clearInput();
-	} else {
-		equalOperator.classList.add("finalResult");
-		operate(operator, +firstOperand, +secondOperand);
-	}
-}
-
 // ----Manipulation of the UI
 function clickKeys(e) {
 	const targetElement = e.target;
@@ -75,18 +66,28 @@ function clickKeys(e) {
 	}
 }
 
+function clickEqualSign() {
+	if (resultDisplay.textContent === "Cannot divide by zero") {
+		clearInput();
+	} else {
+		equalOperator.classList.add("finalResult");
+		operate(operator, +firstOperand, +secondOperand);
+	}
+}
+
 function storeOperands(element) {
-	if (element.className.includes("number")) {
-		if (operator === "") {
-			storeFirstOperand(element);
-		} else {
-			storeSecondOperand(element);
-		}
+	if (operator === "") {
+		storeFirstOperand(element);
+	} else {
+		storeSecondOperand(element);
 	}
 }
 
 function storeFirstOperand(element) {
 	if (firstOperand.length < MAX_DIGITS) {
+		if (element.textContent === "." && firstOperand.includes(".")) {
+			return;
+		}
 		firstOperand += element.textContent;
 		resultDisplay.textContent = firstOperand;
 	}
@@ -95,6 +96,9 @@ function storeFirstOperand(element) {
 function storeSecondOperand(element) {
 	if (secondOperand.length < MAX_DIGITS) {
 		if (!equalOperator.className.includes("finalResult")) {
+			if (element.textContent === "." && secondOperand.includes(".")) {
+				return;
+			}
 			secondOperand += element.textContent;
 			resultDisplay.textContent = secondOperand;
 		} else {
