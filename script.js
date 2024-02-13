@@ -62,6 +62,18 @@ function divide(a, b) {
 	updateDisplay(firstOperand);
 }
 
+function toPercent() {
+	if (resultDisplay.textContent == firstOperand) {
+		firstOperand /= 100;
+		updateDisplay(firstOperand);
+	}
+
+	if (resultDisplay.textContent == secondOperand) {
+		secondOperand /= 100;
+		updateDisplay(secondOperand);
+	}
+}
+
 // ----Manipulation of the UI----
 
 function clickKeys(e) {
@@ -80,6 +92,8 @@ function clickKeys(e) {
 		toggleNegation();
 	} else if (targetElement.dataset.key === "DEL") {
 		deleteInput();
+	} else if (targetElement.dataset.key === "%") {
+		toPercent();
 	}
 }
 
