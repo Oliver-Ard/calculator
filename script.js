@@ -4,8 +4,6 @@ const resultDisplay = document.querySelector(".display .result");
 const keypad = document.querySelector(".keypad");
 const equalOperator = document.querySelector(".equal");
 
-keypad.addEventListener("click", clickKeys);
-
 // ----Calculator Logic----
 let firstOperand = "";
 let secondOperand = "";
@@ -38,7 +36,7 @@ function operate(symbol, a, b) {
 			break;
 		}
 	}
-	// Second Operand needs to be empty before another equation
+	// Second operand needs to be empty before another equation
 	secondOperand = "";
 }
 
@@ -75,28 +73,6 @@ function toPercent() {
 }
 
 // ----Manipulation of the UI----
-
-function clickKeys(e) {
-	const targetElement = e.target;
-
-	if (targetElement.dataset.number) {
-		storeOperands(targetElement);
-	} else if (targetElement.dataset.operation) {
-		storeOperator(targetElement);
-	} else if (targetElement.dataset.key === "=") {
-		equalOperator.classList.add("finalResult");
-		operate(operator, +firstOperand, +secondOperand);
-	} else if (targetElement.dataset.key === "AC") {
-		clearInput();
-	} else if (targetElement.dataset.key === "+/−") {
-		toggleNegation();
-	} else if (targetElement.dataset.key === "DEL") {
-		deleteInput();
-	} else if (targetElement.dataset.key === "%") {
-		toPercent();
-	}
-}
-
 function storeOperands(element) {
 	// This condition is here because we need to store the result of the equation in the first operand. So this will ensure that we can store new numbers just when the operator is empty, more exactly when we clear the input.
 	if (operator === "") {
@@ -163,6 +139,7 @@ function toggleNegation() {
 function deleteInput() {
 	if (resultDisplay.textContent == firstOperand && operator === "") {
 		firstOperand = firstOperand.toString().slice(0, -1);
+
 		firstOperand === ""
 			? (resultDisplay.textContent = "0")
 			: updateDisplay(firstOperand);
@@ -170,6 +147,7 @@ function deleteInput() {
 
 	if (resultDisplay.textContent == secondOperand) {
 		secondOperand = secondOperand.toString().slice(0, -1);
+
 		secondOperand === ""
 			? (resultDisplay.textContent = "0")
 			: updateDisplay(secondOperand);
@@ -183,4 +161,110 @@ function clearInput() {
 	firstOperand = "";
 	secondOperand = "";
 	operator = "";
+}
+
+// ----Event Listeners----
+keypad.addEventListener("click", clickKeys);
+document.addEventListener("keydown", pressKeys);
+
+// Handle Mouse Events
+function clickKeys(e) {
+	const targetElement = e.target;
+
+	if (targetElement.dataset.number) {
+		storeOperands(targetElement);
+	} else if (targetElement.dataset.operation) {
+		storeOperator(targetElement);
+	} else if (targetElement.dataset.key === "=") {
+		equalOperator.classList.add("finalResult");
+		operate(operator, +firstOperand, +secondOperand);
+	} else if (targetElement.dataset.key === "AC") {
+		clearInput();
+	} else if (targetElement.dataset.key === "+/−") {
+		toggleNegation();
+	} else if (targetElement.dataset.key === "DEL") {
+		deleteInput();
+	} else if (targetElement.dataset.key === "%") {
+		toPercent();
+	}
+}
+
+// Handle Keyboard Events
+function pressKeys(e) {
+	const keyCode = e.code;
+	// Regular expression to match any digit character (0-9)
+	const regex = /\d/;
+
+	// Handle numeric keys
+	if (regex.test(keyCode)) {
+		const digit = keyCode[keyCode.length - 1];
+		storeOperands({ dataset: { number: digit } });
+	}
+
+	// Handle operator & other keys
+	switch (keyCode) {
+		case "NumpadAdd":
+		case "KeyA": {
+			storeOperator({
+				dataset: {
+					operation: "+",
+				},
+			});
+			break;
+		}
+		case "NumpadSubtract":
+		case "KeyS": {
+			storeOperator({
+				dataset: {
+					operation: "−",
+				},
+			});
+			break;
+		}
+		case "NumpadMultiply":
+		case "KeyD": {
+			storeOperator({
+				dataset: {
+					operation: "×",
+				},
+			});
+			break;
+		}
+		case "NumpadDivide":
+		case "KeyF": {
+			storeOperator({
+				dataset: {
+					operation: "÷",
+				},
+			});
+			break;
+		}
+		case "NumpadEnter":
+		case "KeyG": {
+			equalOperator.classList.add("finalResult");
+			operate(operator, +firstOperand, +secondOperand);
+			break;
+		}
+		case "NumpadDecimal":
+		case "KeyW": {
+			storeOperands({ dataset: { number: "." } });
+			break;
+		}
+		case "KeyQ": {
+			toPercent();
+			break;
+		}
+		case "KeyE": {
+			toggleNegation();
+			break;
+		}
+		case "KeyR": {
+			deleteInput();
+			break;
+		}
+		case "KeyT": {
+			clearInput();
+			break;
+		}
+	}
 }
