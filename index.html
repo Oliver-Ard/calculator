@@ -9,7 +9,7 @@
 			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"
 			rel="stylesheet" />
 		<script src="script.js" defer></script>
-		<link rel="icon" href="imgs/" />
+		<link rel="icon" href="imgs/favicon.png" />
 		<link rel="stylesheet" href="style.css" />
 		<title>Calculator</title>
 	</head>
@@ -20,27 +20,27 @@
 				<p class="operation"></p>
 				<p class="result">0</p>
 			</div>
-			<div class="keypads">
-					<button class="keypad-darker">AC</button>
-					<button class="keypad-darker">DEL</button>
-					<button class="keypad-darker">%</button>
-					<button class="keypad-darker operator">÷</button>
-					<button class="number">7</button>
-					<button class="number">8</button>
-					<button class="number">9</button>
-					<button class="keypad-darker operator">×</button>
-					<button class="number">4</button>
-					<button class="number">5</button>
-					<button class="number">6</button>
-					<button class="keypad-darker operator">−</button>
-					<button class="number">1</button>
-					<button class="number">2</button>
-					<button class="number">3</button>
-					<button class="keypad-darker operator">+</button>
-					<button class="keypad-darker">+/−</button>
-					<button class="number">0</button>
-					<button class="number keypad-darker">.</button>
-					<button class="equal">&equals;</button>
+			<div class="keypad">
+					<button data-key="AC" class="darker-key">AC</button>
+					<button data-key="DEL" class="darker-key">DEL</button>
+					<button data-operation="%" class="darker-key">%</button>
+					<button data-operation="÷" class="darker-key operator">÷</button>
+					<button data-number="7">7</button>
+					<button data-number="8">8</button>
+					<button data-number="9">9</button>
+					<button data-operation="×" class="darker-key operator">×</button>
+					<button data-number="4">4</button>
+					<button data-number="5">5</button>
+					<button data-number="6">6</button>
+					<button data-operation="−" class="darker-key operator">−</button>
+					<button data-number="1">1</button>
+					<button data-number="2">2</button>
+					<button data-number="3">3</button>
+					<button data-operation="+" class="darker-key operator">+</button>
+					<button data-key="+/−" class="darker-key">+/−</button>
+					<button data-number="0">0</button>
+					<button data-number="." class="darker-key">.</button>
+					<button data-key="=" class="equal">&equals;</button>
 				</div>
 			</div>
 		</div>

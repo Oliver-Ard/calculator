@@ -1,10 +1,10 @@
 // ----HTML Elements----
 const operationDisplay = document.querySelector(".display .operation");
 const resultDisplay = document.querySelector(".display .result");
-const keypads = document.querySelector(".keypads");
+const keypad = document.querySelector(".keypad");
 const equalOperator = document.querySelector(".equal");
 
-keypads.addEventListener("click", clickKeys);
+keypad.addEventListener("click", clickKeys);
 
 // ----Calculator Logic----
 let firstOperand = "";
@@ -15,70 +15,74 @@ const MAX_DIGITS = 13;
 function operate(symbol, a, b) {
 	operationDisplay.textContent = `${firstOperand} ${operator} ${secondOperand}`;
 
-	if (symbol === "+") {
-		return add(a, b);
-	} else if (symbol === "−") {
-		return subtract(a, b);
-	} else if (symbol === "×") {
-		return multiply(a, b);
-	} else if (symbol === "÷") {
-		if (b === 0) {
-			clearInput();
-			resultDisplay.textContent = "Cannot divide by zero";
-		} else {
-			return divide(a, b);
+	switch (symbol) {
+		case "+": {
+			add(a, b);
+			break;
+		}
+		case "−": {
+			subtract(a, b);
+			break;
+		}
+		case "×": {
+			multiply(a, b);
+			break;
+		}
+		case "÷": {
+			if (b === 0) {
+				clearInput();
+				resultDisplay.textContent = "Cannot divide by zero";
+			} else {
+				divide(a, b);
+			}
+			break;
 		}
 	}
+	// Second Operand needs to be empty before another equation
+	secondOperand = "";
 }
 
 function add(a, b) {
 	firstOperand = a + b;
-	resultDisplay.textContent = firstOperand;
+	updateDisplay(firstOperand);
 }
 
 function subtract(a, b) {
 	firstOperand = a - b;
-	resultDisplay.textContent = firstOperand;
+	updateDisplay(firstOperand);
 }
 
 function multiply(a, b) {
 	firstOperand = a * b;
-	resultDisplay.textContent = firstOperand;
+	updateDisplay(firstOperand);
 }
 
 function divide(a, b) {
 	firstOperand = a / b;
-	resultDisplay.textContent = firstOperand;
+	updateDisplay(firstOperand);
 }
 
-// ----Manipulation of the UI
+// ----Manipulation of the UI----
 
 function clickKeys(e) {
 	const targetElement = e.target;
 
-	if (targetElement.className.includes("number")) {
+	if (targetElement.dataset.number) {
 		storeOperands(targetElement);
-	} else if (targetElement.className.includes("operator")) {
+	} else if (targetElement.dataset.operation) {
 		storeOperator(targetElement);
-	} else if (targetElement.className.includes("equal")) {
-		clickEqualSign();
-	} else if (targetElement.textContent === "AC") {
+	} else if (targetElement.dataset.key === "=") {
+		equalOperator.classList.add("finalResult");
+		operate(operator, +firstOperand, +secondOperand);
+	} else if (targetElement.dataset.key === "AC") {
 		clearInput();
-	} else if (targetElement.textContent === "+/−") {
+	} else if (targetElement.dataset.key === "+/−") {
 		toggleNegation();
 	}
 }
 
-function clickEqualSign() {
-	if (resultDisplay.textContent === "Cannot divide by zero") {
-		clearInput();
-	} else {
-		equalOperator.classList.add("finalResult");
-		operate(operator, +firstOperand, +secondOperand);
-	}
-}
-
 function storeOperands(element) {
+	// This condition is here because we need to store the result of the equation in the first operand. So this will ensure that we can store new numbers just when the operator is empty, more exactly when we clear the input.
 	if (operator === "") {
 		storeFirstOperand(element);
 	} else {
@@ -87,23 +91,27 @@ function storeOperands(element) {
 }
 
 function storeFirstOperand(element) {
+	// We check the length of the number we type to ensure it has a limit so as not to break on the other lines.
 	if (firstOperand.length < MAX_DIGITS) {
-		if (element.textContent === "." && firstOperand.includes(".")) {
+		// This condition is for the period not to be typed more than once if one period exists in the operand.
+		if (element.dataset.number === "." && firstOperand.includes(".")) {
 			return;
 		}
-		firstOperand += element.textContent;
-		resultDisplay.textContent = firstOperand;
+		firstOperand += element.dataset.number;
+		updateDisplay(firstOperand);
 	}
 }
 
 function storeSecondOperand(element) {
+	// Same here for the length condition.
 	if (secondOperand.length < MAX_DIGITS) {
 		if (!equalOperator.className.includes("finalResult")) {
+			// Same here for the period condition.
 			if (element.textContent === "." && secondOperand.includes(".")) {
 				return;
 			}
-			secondOperand += element.textContent;
-			resultDisplay.textContent = secondOperand;
+			secondOperand += element.dataset.number;
+			updateDisplay(secondOperand);
 		} else {
 			clearInput();
 			storeFirstOperand(element);
@@ -112,29 +120,27 @@ function storeSecondOperand(element) {
 }
 
 function storeOperator(element) {
-	if (element.className.includes("operator")) {
-		if (equalOperator.className.includes("finalResult")) {
-			equalOperator.classList.remove("finalResult");
-			secondOperand = "";
-			operator = element.textContent;
-		} else {
-			operate(operator, +firstOperand, +secondOperand);
-			secondOperand = "";
-			operator = element.textContent;
-		}
+	// We need to have a class for the equal button to manage that we can chain multiple operations before we can click the equal button.
+	if (!equalOperator.className.includes("finalResult")) {
+		operate(operator, +firstOperand, +secondOperand);
+		operator = element.dataset.operation;
+	} else {
+		equalOperator.classList.remove("finalResult");
+		operator = element.dataset.operation;
 	}
+}
+
+function updateDisplay(result) {
+	resultDisplay.textContent = result;
 }
 
 function toggleNegation() {
 	if (firstOperand !== "" && resultDisplay.textContent == firstOperand) {
 		firstOperand = -parseFloat(firstOperand);
-		resultDisplay.textContent = firstOperand;
-	} else if (
-		secondOperand !== "" &&
-		resultDisplay.textContent == secondOperand
-	) {
+		updateDisplay(firstOperand);
+	} else {
 		secondOperand = -parseFloat(secondOperand);
-		resultDisplay.textContent = secondOperand;
+		updateDisplay(secondOperand);
 	}
 }
 

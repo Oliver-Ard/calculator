@@ -4,7 +4,6 @@
 
 	--clr-primary: #dfecce;
 	--clr-secondary: #99f618;
-	--clr-red: #ce1608;
 	--clr-light: #ffffff;
 	--clr-dark: #202020;
 	--clr-grey-1: #323232;
@@ -72,15 +71,15 @@ p {
 	text-align: right;
 }
 
-/* Calculator Keypads */
-.keypads {
+/* Calculator Keypad */
+.keypad {
 	padding: 0.5rem;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.25rem;
 }
 
-.keypads button {
+.keypad button {
 	cursor: pointer;
 	font-size: inherit;
 	color: var(--clr-light);
@@ -92,38 +91,38 @@ p {
 	flex: auto;
 }
 
-.keypads button:hover {
+.keypad button:hover {
 	background: var(--clr-grey-1);
 }
 
-.keypads button:active {
+.keypad button:active {
 	background: var(--clr-active);
 }
-.keypads .keypad-darker {
+.keypad .darker-key {
 	background: var(--clr-grey-1);
 }
 
-.keypads .keypad-darker:hover {
+.keypad .darker-key:hover {
 	background: var(--clr-grey-2);
 }
 
-.keypads .keypad-darker:active {
+.keypad .darker-key:active {
 	background: var(--clr-active);
 }
 
-.keypads .equal {
+.keypad .equal {
 	background: var(--clr-secondary);
 	color: var(--clr-dark);
 }
 
-.keypads .equal:hover {
+.keypad .equal:hover {
 	background: #84d316;
 }
-.keypads .equal:active {
+.keypad .equal:active {
 	opacity: 0.9;
 }
 
-.keypads .operator,
-.keypads .equal {
+.keypad .operator,
+.keypad .equal {
 	font-size: 1.75rem;
 }
