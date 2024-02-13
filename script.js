@@ -78,6 +78,8 @@ function clickKeys(e) {
 		clearInput();
 	} else if (targetElement.dataset.key === "+/−") {
 		toggleNegation();
+	} else if (targetElement.dataset.key === "DEL") {
+		deleteInput();
 	}
 }
 
@@ -141,6 +143,22 @@ function toggleNegation() {
 	} else {
 		secondOperand = -parseFloat(secondOperand);
 		updateDisplay(secondOperand);
+	}
+}
+
+function deleteInput() {
+	if (resultDisplay.textContent == firstOperand && operator === "") {
+		firstOperand = firstOperand.toString().slice(0, -1);
+		firstOperand === ""
+			? (resultDisplay.textContent = "0")
+			: updateDisplay(firstOperand);
+	}
+
+	if (resultDisplay.textContent == secondOperand) {
+		secondOperand = secondOperand.toString().slice(0, -1);
+		secondOperand === ""
+			? (resultDisplay.textContent = "0")
+			: updateDisplay(secondOperand);
 	}
 }
 
