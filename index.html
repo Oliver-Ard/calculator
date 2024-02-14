@@ -16,32 +16,87 @@
 
 	<body>
 		<div class="calculator">
+			<!-- DISPLAY -->
 			<div class="display">
 				<p class="operation"></p>
 				<p class="result">0</p>
 			</div>
+			<!-- KEYPAD -->
 			<div class="keypad">
-					<button data-key="AC" class="darker-key">AC</button>
-					<button data-key="DEL" class="darker-key">DEL</button>
-					<button data-key="%" class="darker-key">%</button>
-					<button data-operation="÷" class="darker-key operator">÷</button>
-					<button data-number="7">7</button>
-					<button data-number="8">8</button>
-					<button data-number="9">9</button>
-					<button data-operation="×" class="darker-key operator">×</button>
-					<button data-number="4">4</button>
-					<button data-number="5">5</button>
-					<button data-number="6">6</button>
-					<button data-operation="−" class="darker-key operator">−</button>
-					<button data-number="1">1</button>
-					<button data-number="2">2</button>
-					<button data-number="3">3</button>
-					<button data-operation="+" class="darker-key operator">+</button>
-					<button data-key="+/−" class="darker-key">+/−</button>
-					<button data-number="0">0</button>
-					<button data-number="." class="darker-key">.</button>
-					<button data-key="=" class="equal">&equals;</button>
-				</div>
+				<button data-key="AC" class="darker-key">AC</button>
+				<button data-key="DEL" class="darker-key">DEL</button>
+				<button data-key="%" class="darker-key">%</button>
+				<button data-operation="÷" class="darker-key operator">÷</button>
+				<button data-number="7">7</button>
+				<button data-number="8">8</button>
+				<button data-number="9">9</button>
+				<button data-operation="×" class="darker-key operator">×</button>
+				<button data-number="4">4</button>
+				<button data-number="5">5</button>
+				<button data-number="6">6</button>
+				<button data-operation="−" class="darker-key operator">−</button>
+				<button data-number="1">1</button>
+				<button data-number="2">2</button>
+				<button data-number="3">3</button>
+				<button data-operation="+" class="darker-key operator">+</button>
+				<button data-key="+/−" class="darker-key">+/−</button>
+				<button data-number="0">0</button>
+				<button data-number="." class="darker-key">.</button>
+				<button data-key="=" class="equal">&equals;</button>
+			</div>
+
+			<button class="modal-open-button">i</button>
+		</div>
+		<!-- MODAL BOX -->
+		<div class="modal-box">
+			<div class="content">
+				<h1>Calculator Keyboard Guide</h1>
+				<p>Simple calculator with keyboard support.</p>
+				<p>
+					You can use the Numpad keys, as well as keys on the left side of the
+					keyboard.
+				</p>
+				<ul>
+					<li>
+						<span>Numbers</span>: <code>Numpad[0-9]</code> and
+						<code>Digit[0-9]</code>;
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<span>Plus Sign(+)</span>: <code>NumpadAdd</code> and
+						<code>KeyA</code>;
+					</li>
+					<li>
+						<span>Minus Sign(-)</span>: <code>NumpadSubtract</code> and
+						<code>KeyS</code>;
+					</li>
+					<li>
+						<span>Multiplication Sign(×)</span>: <code>NumpadMultiply</code> and
+						<code>KeyD</code>;
+					</li>
+					<li>
+						<span>Division Sign(÷)</span>: <code>NumpadDivide</code> and
+						<code>KeyF</code>;
+					</li>
+					<li>
+						<span>Equal Sign(=)</span>: <code>NumpadDivide</code> and
+						<code>KeyG</code>;
+					</li>
+					<li><span>Percent sign(%)</span>: <code>KeyQ</code>;</li>
+				</ul>
+				<ul>
+					<li><span>Period(.)</span>: <code>KeyW</code>;</li>
+					<li><span>Negation(+/−)</span>: <code>KeyE</code>;</li>
+					<li><span>Delete(DEL)</span>: <code>KeyR</code>;</li>
+					<li><span>All Clear(AC)</span>: <code>KeyT</code>;</li>
+				</ul>
+				<p>
+					You can click the <span class="info-span">i</span> or press
+					<code>KeyI</code> button if you need to come back for the keyboard
+					instructions.
+				</p>
+				<button class="modal-close-button">Close</button>
 			</div>
 		</div>
 	</body>

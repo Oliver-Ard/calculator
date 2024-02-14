@@ -1,14 +1,19 @@
 // ----HTML Elements----
+// Calculator
 const operationDisplay = document.querySelector(".display .operation");
 const resultDisplay = document.querySelector(".display .result");
 const keypad = document.querySelector(".keypad");
 const equalOperator = document.querySelector(".equal");
+// Modal Box
+const modalBox = document.querySelector(".modal-box");
+const modalOpenBtn = document.querySelector(".modal-open-button");
+const modalCloseBtn = document.querySelector(".modal-close-button");
 
 // ----Calculator Logic----
 let firstOperand = "";
 let secondOperand = "";
 let operator = "";
-const MAX_DIGITS = 13;
+const MAX_DIGITS = 12;
 
 function operate(symbol, a, b) {
 	operationDisplay.textContent = `${firstOperand} ${operator} ${secondOperand}`;
@@ -163,9 +168,17 @@ function clearInput() {
 	operator = "";
 }
 
+function toggleModalBox() {
+	modalBox.classList.toggle("active");
+}
+
 // ----Event Listeners----
 keypad.addEventListener("click", clickKeys);
 document.addEventListener("keydown", pressKeys);
+
+modalOpenBtn.addEventListener("click", toggleModalBox);
+modalCloseBtn.addEventListener("click", toggleModalBox);
+window.addEventListener("DOMContentLoaded", toggleModalBox);
 
 // Handle Mouse Events
 function clickKeys(e) {
@@ -264,6 +277,10 @@ function pressKeys(e) {
 		}
 		case "KeyT": {
 			clearInput();
+			break;
+		}
+		case "KeyI": {
+			toggleModalBox();
 			break;
 		}
 	}

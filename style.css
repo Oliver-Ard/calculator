@@ -10,11 +10,16 @@
 	--clr-grey-2: #3b3b3b;
 	--clr-grey-3: #a1a1a1;
 	--clr-active: #2c2c2c;
+	--clr-red: #9d0b12;
+	--clr-overlay-1: rgba(0, 0, 0, 0.6);
+	--clr-overlay-2: rgba(223, 236, 206, 0.9);
 
-	--font-size-p: 1.25rem;
+	--font-size-h1: 4rem;
+	--font-size-p: 1.5rem;
 
-	--box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 20px,
+	--box-shadow-1: rgba(0, 0, 0, 0.35) 0px 5px 20px,
 		rgba(0, 0, 0, 0.35) 0px 5px 10px;
+	--box-shadow-2: rgba(0, 0, 0, 0.35) 0px 5px 20px;
 	--border-radius: 8px;
 }
 
@@ -40,18 +45,21 @@ p {
 	line-height: 1.1;
 }
 
-/* Calculator Body */
+/* CALCULATOR */
+/* --Body-- */
 .calculator {
 	background: var(--clr-dark);
 	color: var(--clr-light);
-	max-width: 500px;
-	width: 90%;
+	max-width: 32rem;
+	width: 80%;
+	margin: 5rem 0;
 	border-radius: var(--border-radius);
-	box-shadow: var(--box-shadow);
+	box-shadow: var(--box-shadow-1);
 	opacity: 0.95;
+	position: relative;
 }
 
-/* Calculator Display */
+/* --Display-- */
 .display {
 	padding: 4rem 1rem 2rem;
 	display: flex;
@@ -60,18 +68,18 @@ p {
 }
 
 .display .operation {
-	font-size: 1.25rem;
+	font-size: var(--font-size-p);
 	color: var(--clr-grey-3);
 	margin-bottom: 1rem;
 }
 
 .display .result {
-	font-size: 3.5rem;
+	font-size: var(--font-size-h1);
 	overflow-wrap: anywhere;
 	text-align: right;
 }
 
-/* Calculator Keypad */
+/* --Keypad-- */
 .keypad {
 	padding: 0.5rem;
 	display: flex;
@@ -80,6 +88,7 @@ p {
 }
 
 .keypad button {
+	font-family: var(--ff-body);
 	cursor: pointer;
 	font-size: inherit;
 	color: var(--clr-light);
@@ -125,4 +134,143 @@ p {
 .keypad .operator,
 .keypad .equal {
 	font-size: 1.75rem;
+}
+
+/* MODAL BOX */
+/* --Modal Open Button-- */
+.modal-open-button {
+	display: inline-block;
+	font-family: var(--ff-body);
+	font-size: var(--font-size-p);
+	font-weight: 700;
+	background: var(--clr-grey-1);
+	box-shadow: var(--box-shadow-2);
+	color: var(--clr-light);
+	cursor: pointer;
+	padding: 0.5em 0.9em;
+	border: none;
+	border-radius: 50%;
+	position: absolute;
+	top: -60px;
+	right: -40px;
+	transition: transform 0.2s ease;
+}
+
+.modal-open-button:hover {
+	background: var(--clr-grey-2);
+	transform: scale(1.2);
+}
+
+.modal-open-button:active {
+	background: var(--clr-dark);
+}
+
+/* --Modal Overlay-- */
+.modal-box::before {
+	content: "";
+	background: var(--clr-overlay-1);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	display: none;
+}
+
+/* --Modal Content-- */
+.modal-box .content {
+	background-color: var(--clr-overlay-2);
+	box-shadow: var(--box-shadow-2);
+	max-width: 70rem;
+	width: 90%;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 2;
+	padding: 2.5rem 2rem;
+	border-radius: var(--border-radius);
+	transform: translate(-50%, -50%) scale(0);
+	transition: all 0.25s ease-in-out;
+}
+
+.modal-box .content h1 {
+	align-self: center;
+	margin: 0 0 2rem;
+}
+
+.modal-box .content p {
+	margin: 0 0 1.5rem;
+	line-height: 1.6;
+}
+
+.modal-box .content ul {
+	margin: 0 0 1.5rem;
+}
+
+.modal-box .content ul li {
+	margin: 0 0 0.75rem;
+}
+
+.modal-box .content span {
+	border-bottom: 1px solid var(--clr-dark);
+	font-weight: 700;
+}
+
+.modal-box .content code {
+	background: var(--clr-red);
+	color: var(--clr-light);
+	padding: 0.05em 0.3em;
+	border-radius: var(--border-radius);
+}
+
+.modal-box .content .info-span {
+	display: inline-block;
+	font-family: var(--ff-body);
+	font-size: var(--font-size-p);
+	font-weight: 700;
+	background: var(--clr-grey-1);
+	box-shadow: var(--box-shadow-2);
+	color: var(--clr-light);
+	padding: 0.25em 0.8em;
+	border: none;
+	border-radius: 50%;
+}
+
+/* --Modal Close Button-- */
+.modal-box .modal-close-button {
+	display: inline-block;
+	align-self: center;
+	margin: 1.5rem 0 0;
+	font-family: var(--ff-body);
+	font-size: var(--font-size-p);
+	background: var(--clr-grey-1);
+	box-shadow: var(--box-shadow-2);
+	color: var(--clr-light);
+	cursor: pointer;
+	padding: 0.5em 1em;
+	border: none;
+	border-radius: var(--border-radius);
+	transition: transform 0.2s ease;
+}
+
+.modal-box .modal-close-button:hover {
+	background: var(--clr-grey-2);
+	transform: scale(1.1);
+}
+
+.modal-box .modal-close-button:active {
+	background: var(--clr-dark);
+}
+
+/* JS ClASSES */
+.modal-box.active::before {
+	display: block;
+}
+
+.modal-box.active .content {
+	transform: translate(-50%, -50%) scale(1);
 }
